@@ -1,25 +1,7 @@
-// Copyright 2018, Google, Inc.
-// Licensed under the Apache License, Version 2.0 (the 'License');
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an 'AS IS' BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 'use strict';
 
-// Import the Dialogflow module and response creation dependencies
-// from the Actions on Google client library.
-const {
-    dialogflow,
-    BasicCard,
-    Permission,
-} = require('actions-on-google');
+// Import the Dialogflow module from the Actions on Google client library.
+const {dialogflow} = require('actions-on-google');
 
 // Import the firebase-functions package for deployment.
 const functions = require('firebase-functions');
@@ -27,81 +9,100 @@ const functions = require('firebase-functions');
 // Instantiate the Dialogflow client.
 const app = dialogflow({debug: true});
 
-// Define a mapping of fake color strings to basic card objects.
-const colorMap = {
-    'indigo taco': new BasicCard({
-        title: 'Indigo Taco',
-        image: {
-            url: 'https://storage.googleapis.com/material-design/publish/material_v_12/assets/0BxFyKV4eeNjDN1JRbF9ZMHZsa1k/style-color-uiapplication-palette1.png',
-            accessibilityText: 'Indigo Taco Color',
-        },
-        display: 'WHITE',
-    }),
-    'pink unicorn': new BasicCard({
-        title: 'Pink Unicorn',
-        image: {
-            url: 'https://storage.googleapis.com/material-design/publish/material_v_12/assets/0BxFyKV4eeNjDbFVfTXpoaEE5Vzg/style-color-uiapplication-palette2.png',
-            accessibilityText: 'Pink Unicorn Color',
-        },
-        display: 'WHITE',
-    }),
-    'blue grey coffee': new BasicCard({
-        title: 'Blue Grey Coffee',
-        image: {
-            url: 'https://storage.googleapis.com/material-design/publish/material_v_12/assets/0BxFyKV4eeNjDZUdpeURtaTUwLUk/style-color-colorsystem-gray-secondary-161116.png',
-            accessibilityText: 'Blue Grey Coffee Color',
-        },
-        display: 'WHITE',
-    }),
-};
+// WELCOME INTENTS
 
-// Handle the Dialogflow intent named 'Default Welcome Intent'.
-app.intent('Default Welcome Intent', (conv) => {
-    // Asks the user's permission to know their name, for personalization.
-    conv.ask(new Permission({
-        context: 'Hi there, to get to know you better',
-        permissions: 'NAME',
-    }));
+app.intent('Make_Profile', (conv) => {
+    conv.ask(`<speak> Ok! I’m Gee! What's your name?</speak>`);
 });
 
-// Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
-// agreed to PERMISSION prompt, then boolean value 'permissionGranted' is true.
-app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
-    if (!permissionGranted) {
-        // If the user denied our request, go ahead with the conversation.
-        conv.ask(`OK, no worries. What's your favorite color?`);
-    } else {
-        // If the user accepted our request, store their name in
-        // the 'conv.data' object for the duration of the conversation.
-        conv.data.userName = conv.user.name.display;
-        conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color?`);
+
+app.intent('Get_Name', (conv, {name}) => {
+    conv.user.storage.name = name
+    conv.ask(name+"! Thats a cool name! Could I ask you for your pronouns, "+name+"?");
+});
+
+app.intent('Get_Pronouns', (conv, {pronouns}) => {
+    conv.user.storage.pronouns = pronouns
+    const name = conv.user.storage.name
+    conv.ask("Gotcha! I'll keep that in mind! So "+name+", can you tell something you like?");
+});
+
+
+app.intent('Get_User_Like', (conv, {any}) => {
+    const name = conv.user.storage.name
+    conv.user.storage.like = any
+    conv.ask("Cool! I also like "+any+", !  Can you tell me one thing you dont like??");
+});
+
+app.intent('Get_User_Dislike', (conv, {any}) => {
+    const name = conv.user.storage.name
+    conv.user.storage.dislike = any
+    conv.ask("I see! Okay, "+name+", How old are you?");
+});
+
+app.intent('Get_Age', (conv, {age}) => {
+    const name = conv.user.storage.name
+    conv.user.storage.age = age
+    conv.ask("Cool! Thanks! Last thing -- can I keep track of your location?");
+});
+
+
+app.intent('Get_Age - yes', (conv, {any}) => {
+    const name = conv.user.storage.name
+    conv.user.storage.location_permission = any
+    conv.ask("Awesome! Let me know if you want to tell me more about yourself, or if you to want to make a friend!");
+});
+
+app.intent('Get_user_activity', (conv, {any}) => {
+    const name = conv.user.storage.name
+    conv.ask("Ok! Victor, Mike and Sally are nearby and also want to "+any+". Would you like to know more about one of them?");
+});
+
+
+
+/////
+
+var matches = [
+    {"name":"Victor", "age":19,"interest":"Dancing", "pronouns":"he"},
+    {"name":"Mike", "age":22,"interest":"Basketball", "pronouns":"he"},
+    {"name":"Sally", "age":32,"interest":"eating", "pronouns":"she"}
+]
+
+app.intent('describeMatch', (conv, {name}) => {
+    var answer;
+    var found = -1;
+    var i;
+    for (i = 0; i < matches.length; i++) {
+        if (matches[i].name == name)
+            found = i;
     }
-});
 
-// Handle the Dialogflow intent named 'favorite color'.
-// The intent collects a parameter named 'color'.
-app.intent('favorite color', (conv, {color}) => {
-    const luckyNumber = color.length;
-    const audioSound = 'https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg';
-    if (conv.data.userName) {
-        // If we collected user name previously, address them by name and use SSML
-        // to embed an audio snippet in the response.
-        conv.ask(`<speak>${conv.data.userName}, your lucky number is ` +
-            `${luckyNumber}.<audio src="${audioSound}"></audio>` +
-            `Would you like to hear some fake colors?</speak>`);
-    } else {
-        conv.ask(`<speak>Your lucky number is ${luckyNumber}.` +
-            `<audio src="${audioSound}"></audio>` +
-            `Would you like to hear some fake colors?</speak>`);
+    if (i == -1)
+    {
+        var nearby_people = ""
+        for (i = 0; i < matches.length; i++) {
+            nearby_people = matches.name + ","
+        }
+
+        answer = "Sorry,  " + name + " isnt nearby. However," +nearby_people+" are nearby! Would you like to know about any of them?"
+
     }
-});
+    else
+    {
+        var n = matches[found].name;
+        var pronoun = matches[found].pronouns;
+        var interest = matches[found].interest;
+        var age = matches[found].age;
+        answer = n +" is "+age +" and "+pronoun +" likes "+interest+". Do you want to message him?";
+    }
+    conv.ask(answer);
+})
 
-// Handle the Dialogflow intent named 'favorite fake color'.
-// The intent collects a parameter named 'fakeColor'.
-app.intent('favorite fake color', (conv, {fakeColor}) => {
-    // Present user with the corresponding basic card and end the conversation.
-    conv.close(`Here's the color`, colorMap[fakeColor]);
-});
+
+
+///
+
+
 
 // Set the DialogflowApp object to handle the HTTPS POST request.
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
