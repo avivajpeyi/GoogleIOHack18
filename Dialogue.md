@@ -54,7 +54,7 @@
 
 **Tom:** Text him "Hi, I'm Tom from Icebreaker. Would you like to go Rockclimbing today at 5pm ?"
 
-**Assistant:** Cool, I just sent him the message. 
+**Assistant:** Cool, I just sent him the message. Good-bye! 
 
 
 
