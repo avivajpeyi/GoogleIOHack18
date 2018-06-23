@@ -26,16 +26,23 @@
 
 **Tom:** Im 18! 
 
-**Assistant:** Cool! Thanks! Last thing:
+**Assistant:** Cool! Thanks! Last thing can I keep track of your location?
+
+**Tom:** Sure! 
+
+**Assistant:** Thanks Tom! Well, let me know if you have more you want to tell me about yourself, or if you want me to help you make a new friend! 
+
+**Tom:** Okay, thanks! Im good for now.
+
+**Assistant:** Okay! Talk to you later! Bye! 
 
 
-
-
-
-
-location, likes, age, pronouns 
 
 
 ## Searching Data
+
+
+
+
 
 
