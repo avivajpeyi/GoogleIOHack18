@@ -26,20 +26,34 @@
 
 **Tom:** Im 18! 
 
-**Assistant:** Cool! Thanks! Last thing can I keep track of your location?
-
-**Tom:** Sure! 
-
-**Assistant:** Thanks Tom! Well, let me know if you have more you want to tell me about yourself, or if you want me to help you make a new friend! 
-
-**Tom:** Okay, thanks! Im good for now.
-
-**Assistant:** Okay! Talk to you later! Bye! 
+**Assistant:** Cool! Thanks! Last thing:
 
 
+
+
+
+
+location, likes, age, pronouns 
 
 
 ## Searching Data
+
+**Tom:** Hey Google, find someone who wants to Rockclimb ?
+
+**Assistant:** Sure, based on your location Joe and Rick are avalible. Who you like to know about them ?
+
+**Tom:** Yes, tell me about Joe.
+
+**Assistant:** Ok, Joe is 19 years old and is currently a college student who likes the wilderness and sports.Who you like to message Joe or would like to know about Rick ?
+
+**Tom:** Message Joe.
+
+**Assistant:** What would you like to tell him ?
+
+**Tom:** Text him "Hi, I'm Tom from Icebreaker. Would you like to go Rockclimbing today at 5pm ?"
+
+**Assistant:** 
+
 
 
 
