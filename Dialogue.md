@@ -32,6 +32,10 @@
 
 **Assistant:** Awesome! Well, let me know if you want to tell me more about yourself, or if you to want to make a friend!
 
+**Tom:** Okay, I think im good for now, thanks.
+
+**Assistant:** Cool! Ill talk to you later then, bye! 
+
 
 
 ## Searching Data
