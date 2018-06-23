@@ -16,7 +16,7 @@
 
 **Assistant:** Gotcha! I'll keep that in mind! So Tom, can you tell me a 3 things about what you like?
 
-**Tom:** Yeah, sure. I like sports like tennis, watching movies, and trying new types of food! 
+**Tom:** Yeah, sure. I like sports like tennis, watching movies, and trying new types of food! (START WITH 1 LIKE)
 
 **Assistant:** Cool! I also like <somthing>! Can you tell me one thing you dont like? 
 
@@ -26,20 +26,36 @@
 
 **Tom:** Im 18! 
 
-**Assistant:** Cool! Thanks! Last thing can I keep track of your location?
+**Assistant:** Cool! Thanks! Last thing:can I keep track of your location?
 
 **Tom:** Sure! 
 
-**Assistant:** Thanks Tom! Well, let me know if you have more you want to tell me about yourself, or if you want me to help you make a new friend! 
+**Assistant:** Awesome! Well, let me know if you want to tell me more about yourself, or if you to want to make a friend!
 
-**Tom:** Okay, thanks! Im good for now.
+**Tom:** Okay, I think im good for now, thanks.
 
-**Assistant:** Okay! Talk to you later! Bye! 
-
+**Assistant:** Cool! Ill talk to you later then, bye! 
 
 
 
 ## Searching Data
+
+**Tom:** Hey Google, icebreak someone who wants to Rockclimb ?
+
+**Assistant:** Sure, based on your location Joe and Rick are avalible. Who you like to know about them ?
+
+**Tom:** Yes, tell me about Joe.
+
+**Assistant:** Ok, Joe is 19 years old and is currently a college student who likes the wilderness and sports.Who you like to message Joe or would like to know about Rick ?
+
+**Tom:** Message Joe.
+
+**Assistant:** What would you like to tell him ?
+
+**Tom:** Text him "Hi, I'm Tom from Icebreaker. Would you like to go Rockclimbing today at 5pm ?"
+
+**Assistant:** Cool, I just sent him the message. 
+
 
 
 
