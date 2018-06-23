@@ -40,7 +40,7 @@
 
 ## Searching Data
 
-**Tom:** Hey Google, find someone who wants to Rockclimb ?
+**Tom:** Hey Google, icebreak someone who wants to Rockclimb ?
 
 **Assistant:** Sure, based on your location Joe and Rick are avalible. Who you like to know about them ?
 
